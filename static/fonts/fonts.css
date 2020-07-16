@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "Cirka-Regular";
+  src: url("/fonts/Cirka-Regular.eot?") format("eot"),
+    url("/fonts/Cirka-Regular.woff") format("woff");
+
+  font-weight: normal;
+}

@@ -1,0 +1,22 @@
+.react-images__view-image {
+  border: solid #fff 20px;
+}
+
+.react-images__navigation > button {
+  background-color: transparent;
+  transition: all 0.5s;
+}
+
+.react-images__navigation > button:hover {
+  background-color: transparent;
+  transform: translate(0, -10px);
+  transition: all 0.5s;
+}
+
+.react-images__header_button--fullscreen {
+  display: none !important;
+}
+
+.react-images__blanket {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
