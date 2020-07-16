@@ -19,11 +19,11 @@ const TestGalerry = props => {
     setViewerIsOpen(false)
   }
   let col = 4
-  let w = window.innerWidth
+  // let w = window.innerWidth
 
-  if (w < size.mobile) {
-    col = 2
-  }
+  // if (w < size.mobile) {
+  //   col = 2
+  // }
 
   return (
     <>
