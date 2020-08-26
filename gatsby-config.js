@@ -9,6 +9,7 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     "gatsby-plugin-root-import",
     `gatsby-plugin-layout`,
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-scroll-reveal`,
       options: {

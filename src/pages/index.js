@@ -3,6 +3,8 @@ import { graphql } from "gatsby"
 import styled from "styled-components"
 import { device } from "src/components/brakePoints"
 import MainNav from "src/components/Navigation.js"
+import ScrollContainer from "react-indiana-drag-scroll"
+import Helmet from "react-helmet"
 
 import MainWrap from "src/components/MainWrap"
 import BigTitle from "src/components/Texts/BigTitle"
@@ -53,39 +55,72 @@ const OfferWrap = styled.div`
   margin: 0;
   background-color: #cdd3c8;
   position: relative;
-`
 
-const OfferList = styled.div`
-  display: flex;
-  padding-bottom: 100px;
-  overflow-x: scroll;
-  width: 100%;
-  padding-right: calc(50vw - 600px);
+  .scroll-container {
+    display: flex;
+    padding-bottom: 100px;
+    transition: all 0.5s;
+    /* overflow-x: scroll; */
+    width: 100%;
+    padding-right: calc(50vw - 600px);
 
-  &::-webkit-scrollbar {
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-right: calc(50vw - 600px) solid rgba(255, 255, 255, 0);
-    background-clip: padding-box;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: #cdd3c8;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #adb4a7;
-  }
-
-  @media ${device.laptop} {
-    padding-right: 50px;
+    &::-webkit-scrollbar {
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0);
+    }
 
     &::-webkit-scrollbar-thumb {
-      border-right: 50px solid rgba(255, 255, 255, 0);
+      border-right: calc(50vw - 600px) solid rgba(255, 255, 255, 0);
+      background-clip: padding-box;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: #cdd3c8;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #adb4a7;
+    }
+
+    @media ${device.laptop} {
+      padding-right: 50px;
+
+      &::-webkit-scrollbar-thumb {
+        border-right: 50px solid rgba(255, 255, 255, 0);
+      }
     }
   }
 `
+
+// const OfferList = styled.div`
+//   display: flex;
+//   padding-bottom: 100px;
+//   overflow-x: scroll;
+//   width: 100%;
+//   padding-right: calc(50vw - 600px);
+
+//   &::-webkit-scrollbar {
+//     height: 1px;
+//     background-color: rgba(255, 255, 255, 0);
+//   }
+
+//   &::-webkit-scrollbar-thumb {
+//     border-right: calc(50vw - 600px) solid rgba(255, 255, 255, 0);
+//     background-clip: padding-box;
+//   }
+//   &::-webkit-scrollbar-track {
+//     background-color: #cdd3c8;
+//   }
+//   &::-webkit-scrollbar-thumb {
+//     background-color: #adb4a7;
+//   }
+
+//   @media ${device.laptop} {
+//     padding-right: 50px;
+
+//     &::-webkit-scrollbar-thumb {
+//       border-right: 50px solid rgba(255, 255, 255, 0);
+//     }
+//   }
+// `
 
 const OfferSeparator = styled.hr`
   border: 0;
@@ -216,162 +251,185 @@ const ImgLeft = styled.img`
   position: relative;
   margin-top: -350px;
 `
+class IndexPage extends React.Component {
+  state = {
+    isDraggable: false,
+  }
+  draggableOn = () => {
+    this.setState({
+      isDraggable: true,
+    })
+    console.log("isDraggable__ON")
+  }
 
-const IndexPage = ({ data }) => {
-  const dataS = data.allStrapiHome.edges[0].node
-  const str = dataS.Companies
-  const str_array = str.split(",")
-  return (
-    <>
-      <MainNav col />
-      <BriefBtnFix Link={data.strapiLinkBrief.Link} target="blank">
-        wypełnij brief
-      </BriefBtnFix>
-      <Header>
-        <MainWrap>
-          <SliderSection>
-            <SimpleSlider Images={dataS.Header_Slider} />
-            <MainTitle
+  draggableOff = () => {
+    this.setState({
+      isDraggable: false,
+    })
+    console.log("isDraggable__Off")
+  }
+  // const IndexPage = ({ data }) => {
+  render() {
+    const dataS = this.props.data.allStrapiHome.edges[0].node
+    const str = dataS.Companies
+    const str_array = str.split(",")
+    return (
+      <>
+        <MainNav col />
+        <BriefBtnFix Link={this.props.data.strapiLinkBrief.Link} target="blank">
+          wypełnij brief
+        </BriefBtnFix>
+        <Header>
+          <MainWrap>
+            <SliderSection>
+              <SimpleSlider Images={dataS.Header_Slider} />
+              <MainTitle
+                data-sal="slide-up"
+                data-sal-delay="300"
+                data-sal-easing="ease"
+                data-sal-duration="1000"
+                col="white"
+                width="320px"
+                icon="white"
+              >
+                {dataS.Header_Title}
+              </MainTitle>
+              <WrapHeaderLink>
+                <ButtonRightIcon>Obejrzyj projekty</ButtonRightIcon>
+              </WrapHeaderLink>
+            </SliderSection>
+          </MainWrap>
+        </Header>
+        <OfferWrap>
+          <MainWrap>
+            <ScrollContainer
+              hideScrollbars="false"
+              className="scroll-container"
+              onStartScroll={this.draggableOn}
+              onEndScroll={this.draggableOff}
               data-sal="slide-up"
               data-sal-delay="300"
               data-sal-easing="ease"
               data-sal-duration="1000"
-              col="white"
-              width="320px"
-              icon="white"
             >
-              {dataS.Header_Title}
-            </MainTitle>
-            <WrapHeaderLink>
-              <ButtonRightIcon>Obejrzyj projekty</ButtonRightIcon>
-            </WrapHeaderLink>
-          </SliderSection>
-        </MainWrap>
-      </Header>
-      <OfferWrap>
-        <MainWrap>
-          <OfferList
+              {this.props.data.allStrapiOffer.edges.map(document => (
+                <OfferCard
+                  Draggable={this.state.isDraggable ? true : false}
+                  Title={document.node.Title}
+                  Paragraph={document.node.Short_Description}
+                  Offer={document.node.strapiId}
+                />
+              ))}
+            </ScrollContainer>
+            <OfferSeparator />
+          </MainWrap>
+        </OfferWrap>
+        <ClientWrap>
+          <MainWrap>
+            <ClientSection>
+              <ClientSmallParagraph
+                data-sal="slide-up"
+                data-sal-delay="300"
+                data-sal-easing="ease"
+                data-sal-duration="1000"
+              >
+                {dataS.Companies_SmallText}
+              </ClientSmallParagraph>
+              <div>
+                <BigTitle
+                  width="500px"
+                  data-sal="slide-up"
+                  data-sal-delay="300"
+                  data-sal-easing="ease"
+                  data-sal-duration="1000"
+                >
+                  {dataS.Companies_Title}
+                </BigTitle>
+                <ClientList>
+                  {str_array.map((item, index) => (
+                    <>
+                      <p
+                        data-sal="slide-up"
+                        data-sal-delay="300"
+                        data-sal-easing="ease"
+                        data-sal-duration="1000"
+                      >
+                        {item}
+                      </p>
+                    </>
+                  ))}
+                </ClientList>
+                <ClientParagraph
+                  data-sal="slide-up"
+                  data-sal-delay="300"
+                  data-sal-easing="ease"
+                  data-sal-duration="1000"
+                >
+                  {dataS.Companies_Description}
+                </ClientParagraph>
+                <ClientSeparator />
+              </div>
+            </ClientSection>
+          </MainWrap>
+        </ClientWrap>
+        <SocialWrap>
+          <SocialTextStar
+            col="white"
             data-sal="slide-up"
             data-sal-delay="300"
             data-sal-easing="ease"
             data-sal-duration="1000"
           >
-            {data.allStrapiOffer.edges.map(document => (
-              <OfferCard
-                Title={document.node.Title}
-                Paragraph={document.node.Short_Description}
-                Offer={document.node.strapiId}
-              />
-            ))}
-          </OfferList>
-          <OfferSeparator />
-        </MainWrap>
-      </OfferWrap>
-      <ClientWrap>
-        <MainWrap>
-          <ClientSection>
-            <ClientSmallParagraph
+            {dataS.Social_Text_1} <br /> <br /> {dataS.Social_Text_2}
+          </SocialTextStar>
+          <SocialIconsWrap
+            data-sal="slide-up"
+            data-sal-delay="300"
+            data-sal-easing="ease"
+            data-sal-duration="1000"
+          >
+            <SocialIconLink
+              href={"https://www.facebook.com/mybigdaypl/"}
+              target={"blank"}
+              icon={facebook}
+            />
+            <SocialIconLink
+              href={"https://www.instagram.com/mybigday_pl/?hl=pl"}
+              target={"blank"}
+              icon={insta}
+            />
+            <SocialIconLink
+              href={"https://pl.pinterest.com/mybigdaypl/pins/"}
+              target={"blank"}
+              icon={pinterest}
+            />
+          </SocialIconsWrap>
+        </SocialWrap>
+        <TeamWrap>
+          <MainWrap>
+            <ImgRight
               data-sal="slide-up"
               data-sal-delay="300"
               data-sal-easing="ease"
               data-sal-duration="1000"
-            >
-              {dataS.Companies_SmallText}
-            </ClientSmallParagraph>
-            <div>
-              <BigTitle
-                width="500px"
-                data-sal="slide-up"
-                data-sal-delay="300"
-                data-sal-easing="ease"
-                data-sal-duration="1000"
-              >
-                {dataS.Companies_Title}
-              </BigTitle>
-              <ClientList>
-                {str_array.map((item, index) => (
-                  <>
-                    <p
-                      data-sal="slide-up"
-                      data-sal-delay="300"
-                      data-sal-easing="ease"
-                      data-sal-duration="1000"
-                    >
-                      {item}
-                    </p>
-                  </>
-                ))}
-              </ClientList>
-              <ClientParagraph
-                data-sal="slide-up"
-                data-sal-delay="300"
-                data-sal-easing="ease"
-                data-sal-duration="1000"
-              >
-                {dataS.Companies_Description}
-              </ClientParagraph>
-              <ClientSeparator />
-            </div>
-          </ClientSection>
-        </MainWrap>
-      </ClientWrap>
-      <SocialWrap>
-        <SocialTextStar
-          col="white"
-          data-sal="slide-up"
-          data-sal-delay="300"
-          data-sal-easing="ease"
-          data-sal-duration="1000"
-        >
-          {dataS.Social_Text_1} <br /> <br /> {dataS.Social_Text_2}
-        </SocialTextStar>
-        <SocialIconsWrap
-          data-sal="slide-up"
-          data-sal-delay="300"
-          data-sal-easing="ease"
-          data-sal-duration="1000"
-        >
-          <SocialIconLink
-            href={"https://www.facebook.com/mybigdaypl/"}
-            target={"blank"}
-            icon={facebook}
-          />
-          <SocialIconLink
-            href={"https://www.instagram.com/mybigday_pl/?hl=pl"}
-            target={"blank"}
-            icon={insta}
-          />
-          <SocialIconLink
-            href={"https://pl.pinterest.com/mybigdaypl/pins/"}
-            target={"blank"}
-            icon={pinterest}
-          />
-        </SocialIconsWrap>
-      </SocialWrap>
-      <TeamWrap>
-        <MainWrap>
-          <ImgRight
-            data-sal="slide-up"
-            data-sal-delay="300"
-            data-sal-easing="ease"
-            data-sal-duration="1000"
-            src={dataS.Team_Img_1.childImageSharp.fluid.src}
-            // srcSet={data.teamv1.childImageSharp.fluid.srcSet}
-            // sizes={data.teamv1.childImageSharp.fluid.sizes}
-          ></ImgRight>
-          <ImgLeft
-            data-sal="slide-up"
-            data-sal-delay="300"
-            data-sal-easing="ease"
-            data-sal-duration="1000"
-            src={dataS.Team_Img_2.childImageSharp.fluid.src}
-            // srcSet={data.teamv2.childImageSharp.fluid.srcSet}
-            // sizes={data.teamv2.childImageSharp.fluid.sizes}
-          ></ImgLeft>
-        </MainWrap>
-      </TeamWrap>
-    </>
-  )
+              src={dataS.Team_Img_1.childImageSharp.fluid.src}
+              // srcSet={data.teamv1.childImageSharp.fluid.srcSet}
+              // sizes={data.teamv1.childImageSharp.fluid.sizes}
+            ></ImgRight>
+            <ImgLeft
+              data-sal="slide-up"
+              data-sal-delay="300"
+              data-sal-easing="ease"
+              data-sal-duration="1000"
+              src={dataS.Team_Img_2.childImageSharp.fluid.src}
+              // srcSet={data.teamv2.childImageSharp.fluid.srcSet}
+              // sizes={data.teamv2.childImageSharp.fluid.sizes}
+            ></ImgLeft>
+          </MainWrap>
+        </TeamWrap>
+      </>
+    )
+  }
 }
 
 export const query = graphql`

@@ -12,6 +12,12 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: all 0.5s;
+  &.active {
+    transform: scale(0.9);
+    transition: all 0.5s;
+    margin-right: 90px;
+  }
   &:last-of-type {
     padding-right: 130px;
   }
@@ -41,7 +47,7 @@ const CompParagraph = styled(Paragraph)`
 `
 
 const OfferCard = props => (
-  <Wrap>
+  <Wrap className={props.Draggable ? "active" : ""}>
     <div>
       <Title col="white">{props.Title}</Title>
       <Separator />
