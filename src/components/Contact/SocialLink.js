@@ -3,6 +3,15 @@ import styled from "styled-components"
 import { device } from "src/components/brakePoints"
 import { Link } from "gatsby"
 
+const Separator = styled.hr`
+  border: 0;
+  height: 1px;
+  background: #656565;
+  width: 275px;
+  margin-bottom: 27px;
+  transition: all 0.5s;
+`
+
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,6 +21,13 @@ const Wrap = styled.div`
   }
   @media ${device.tabletS} {
     width: 100%;
+  }
+
+  &:hover {
+    ${Separator} {
+      width: 200px;
+      transition: all 0.5s;
+    }
   }
 `
 
@@ -23,14 +39,6 @@ const NameLink = styled.a`
   margin-bottom: 5px;
   text-decoration: none;
   cursor: pointer;
-`
-
-const Separator = styled.hr`
-  border: 0;
-  height: 1px;
-  background: #656565;
-  width: 275px;
-  margin-bottom: 27px;
 `
 
 const Person = props => (
