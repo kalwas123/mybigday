@@ -145,9 +145,9 @@ const ProjectsWrap = styled.div`
 
 class contactPage extends React.Component {
   state = {
-    offer: this.props.location.state.offer - 1 || 0,
+    // offer: this.props.location.state.offer - 1 || 0,
     // offer: this.props.location.search.replace("?", "") - 1 || 0,
-    // offer: 0,
+    offer: 0,
   }
 
   changeOffer = n => {
