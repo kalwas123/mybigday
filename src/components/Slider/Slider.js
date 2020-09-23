@@ -1,12 +1,21 @@
 import React, { useState } from "react"
 import { graphql, useStaticQuery, StaticQuery } from "gatsby"
 import styled from "styled-components"
+import { device } from "src/components/brakePoints"
 
 const CarouselWrap = styled.div`
   width: 66%;
   height: 100%;
   display: flex;
   position: relative;
+
+  @media ${device.tabletS} {
+    width: calc(100vw - 50px);
+    height: 60vw;
+  }
+  @media ${device.mobile} {
+    width: calc(100vw - 20px);
+  }
 `
 
 const Carousel = styled.div`
@@ -32,7 +41,7 @@ const Slide = styled.img`
 const Pagination = styled.div`
   position: absolute;
   top: 0;
-  left: -10px;
+  left: -3px;
   display: flex;
   transform-origin: left top;
   transform: rotate(90deg);

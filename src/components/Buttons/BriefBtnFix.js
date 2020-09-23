@@ -6,7 +6,7 @@ const Btn = styled(ButtonBox)`
   position: fixed;
   top: 200px;
   right: 0;
-  z-index: 999;
+  z-index: 900;
   color: #fff;
   transition: all 0.5s;
 

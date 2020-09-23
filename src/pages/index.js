@@ -27,6 +27,10 @@ const Header = styled.header`
   background-color: #cdd3c8;
   height: calc(100vh - 250px);
   position: relative;
+  @media ${device.tabletS} {
+    padding-top: 140px;
+    height: auto;
+  }
 `
 
 const SliderSection = styled.div`
@@ -40,12 +44,25 @@ const MainTitle = styled(BigTitle)`
   position: absolute;
   left: 58.33%;
   top: 130px;
+  @media ${device.tabletS} {
+    position: relative;
+    margin-top: 25px;
+    top: 0;
+    left: 25vw;
+    max-width: 310px;
+  }
 `
 
 const WrapHeaderLink = styled.div`
   position: absolute;
   left: 75%;
   bottom: 30px;
+  @media ${device.tabletS} {
+    position: relative;
+    margin-top: 35px;
+    top: 0;
+    left: 25vw;
+  }
 `
 
 const OfferWrap = styled.div`
@@ -55,6 +72,10 @@ const OfferWrap = styled.div`
   margin: 0;
   background-color: #cdd3c8;
   position: relative;
+
+  @media ${device.tabletS} {
+    padding-top: 100px;
+  }
 
   .scroll-container {
     display: flex;

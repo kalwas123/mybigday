@@ -1,7 +1,7 @@
 export const size = {
   mobileS: "320",
   mobile: "550",
-  tabletS: "750",
+  tabletS: "800",
   tablet: "1050",
   laptop: "1300",
   desktop: "2560",

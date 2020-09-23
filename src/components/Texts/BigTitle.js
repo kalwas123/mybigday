@@ -63,7 +63,7 @@ const BigTitle = styled.h1`
     
   
     @media ${device.mobile} {
-      font-size: 40px;
+      font-size: 30px;
   }
 `
 
